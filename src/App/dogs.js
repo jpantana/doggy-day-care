@@ -8,16 +8,16 @@ const dogs = [
   },
   {
     id: 'dog2',
-    name: 'Daffy',
+    name: 'Bruce Wayne',
     breed: 'Boston Terrier',
     talents: 'eats astro turf',
     image: 'https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2018/03/20103736/most-popular-breeds-by-city.jpeg',
   },
   {
     id: 'dog3',
-    name: 'Mickey Blue Eyes',
+    name: 'Wanda',
     breed: 'Beagle',
-    talents: 'barks letters of the alphabet',
+    talents: 'sleeps in a robe',
     image: 'https://cdn1-www.dogtime.com/assets/uploads/2011/01/file_23012_beagle-460x290.jpg',
   },
 ]

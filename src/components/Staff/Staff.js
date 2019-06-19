@@ -17,8 +17,8 @@ class Staff extends React.Component {
           <img className="card-img-top" src={employee.image} alt="a staff"/>
           <div className="card-body">
             <h5 className="card-title">{employee.name}</h5>
-            <p className="card-text">{employee.breed}</p>
-            <p className="card-text">{employee.talents}</p>
+            <p className="card-text">{employee.position}</p>
+            <p className="card-text">{employee.hireDate}</p>
           </div>
         </div>
       </div>

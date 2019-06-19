@@ -8,7 +8,6 @@ class Dog extends React.Component {
   static propTypes = {
     dog: dogShape.dogShape,
   }
-
   render() {
     const { dog } = this.props;
     return (

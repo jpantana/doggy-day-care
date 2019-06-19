@@ -1,5 +1,3 @@
-import { statement } from "@babel/template";
-
 import React from 'react';
 
 import DogPen from '../components/DogPen/DogPen';

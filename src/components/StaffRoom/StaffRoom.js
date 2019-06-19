@@ -9,11 +9,11 @@ import './StaffRoom.scss';
 
 class StaffRoom extends React.Component {
   static propTypes = {
-    employees: PropTypes.arrayOf(staffShape.staffShape),
+    staff: PropTypes.arrayOf(staffShape.staffShape),
   }
   render() {
-    const { employees } = this.props;
-    const makeEmployees = employees.map(employee => (
+    const { staff } = this.props;
+    const makeEmployees = staff.map(employee => (
       <Staff key={ employee.id } employee={ employee } />
     ));
     return (
