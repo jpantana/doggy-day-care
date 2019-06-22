@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import staffShape from '../../helpers/propz/Shapes';
+import staffShape from '../../helpers/propz/staffShape';
 
 import Staff from '../Staff/Staff';
 

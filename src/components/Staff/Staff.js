@@ -1,6 +1,6 @@
 import React from 'react';
 
-import staffShape from '../../helpers/propz/Shapes';
+import staffShape from '../../helpers/propz/staffShape';
 
 import './Staff.scss';
 

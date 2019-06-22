@@ -1,6 +1,6 @@
 import React from 'react';
 
-import dogShape from '../../helpers/propz/Shapes';
+import dogShape from '../../helpers/propz/dogShape';
 
 import './Dog.scss';
 

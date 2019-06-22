@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import dogShape from '../../helpers/propz/Shapes';
+import dogShape from '../../helpers/propz/dogShape';
 
 import Dog from '../Dog/Dog';
 
@@ -14,7 +14,7 @@ class DogPen extends React.Component {
   render() {
     const { dogs } = this.props;
     const makeDogs = dogs.map(dog => (
-      <Dog key={ dog.id } dog={ dog } /> // for each dog return a Dog component that returns a dog compent with a prop of the dog
+      <Dog key={ dog.id } dog={ dog } /> // for each dog return a Dog component that returns a dog component with a prop of the dog
     ));
     return (
       <div className = "DogPen d-flex flex-wrap">
