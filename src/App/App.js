@@ -1,9 +1,9 @@
 import React from 'react';
 
 import DogPen from '../components/DogPen/DogPen';
-import myDogs from './dogs.js';
+import dogsData from '../helpers/data/dogsData';
+import employeesData from '../helpers/data/employeesData';
 import StaffRoom from '../components/StaffRoom/StaffRoom';
-import myEmployees from './employees';
 
 import './App.scss';
 
@@ -14,8 +14,15 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.setState ({ dogs: myDogs })
-    this.setState ({ staff: myEmployees })
+    // this.setState ({ dogs: myDogs })
+    employeesData.getEmployees()
+      .then(staff => this.setState({ staff }))
+      .catch(err => console.error('no employees', err));
+    dogsData.getDogs()
+      .then(dogs => this.setState({ dogs }))
+      .catch(err => console.error('no dogs for you', err));
+    
+    // this.setState ({ staff: myEmployees })
   }
 
   render() {

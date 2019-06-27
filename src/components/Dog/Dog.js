@@ -13,7 +13,7 @@ class Dog extends React.Component {
     return (
       <div className="Dog col-3 justify-content-center">
         <div className="card">
-          <img className="card-img-top" src={dog.image} alt="a dog"/>
+          <img className="card-img-top" src={dog.image} alt={`${dog.name} being doggish`}/>
           <div className="card-body">
             <h5 className="card-title">{dog.name}</h5>
             <p className="card-text">{dog.breed}</p>
