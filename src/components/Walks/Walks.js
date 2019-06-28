@@ -22,7 +22,7 @@ class WalkSchedule extends React.Component {
       <Walk key={ walk.id } walk={ walk } /> // for each walk return a Walk component that returns a walk component with a prop of the walk
     ));
     return (
-      <div className = "Walks d-flex flex-wrap">
+      <div className = "column Walks d-flex flex-wrap">
         { makeWalks }
       </div>
     )
