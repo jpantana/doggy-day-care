@@ -1,32 +1,47 @@
 import React from 'react';
+import firebase from 'firebase/app';
 
-import DogPen from '../components/DogPen/DogPen';
-import myDogs from './dogs.js';
-import StaffRoom from '../components/StaffRoom/StaffRoom';
-import myEmployees from './employees';
+import Auth from '../components/Auth/Auth';
+import Home from '../components/Home/Home';
+import MyNavbar from '../components/MyNavbar/MyNavbar';
 
 import './App.scss';
 
+import fbConnection from '../helpers/data/connection';
+
+fbConnection();
+
 class App extends React.Component {
   state = {
-    dogs: [],
-    staff: [],
+    authed: false,
   }
 
   componentDidMount() {
-    this.setState ({ dogs: myDogs })
-    this.setState ({ staff: myEmployees })
+    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ authed: true });
+      } else {
+        this.setState({ authed: false });
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this.removeListener();
   }
 
   render() {
-    const { dogs } = this.state;
-    const { staff } = this.state;
+    const { authed } = this.state;
+    const loadComponent = () => {
+      if (this.state.authed) {
+        return <Home />;
+      }
+      return <Auth />;
+    };
     return (
       <div className="App">
-        <div className="">Dog Pen</div>
-        <DogPen dogs={ dogs } />
-        <div className="">Employees</div>
-        <StaffRoom staff={ staff } />
+        <MyNavbar authed={ authed } />
+        {loadComponent()}
       </div>
     );
   }

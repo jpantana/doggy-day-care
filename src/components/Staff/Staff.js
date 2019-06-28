@@ -12,7 +12,7 @@ class Staff extends React.Component {
   render() {
     const { employee } = this.props;
     return (
-      <div className="Staff col-3 justify-content-center">
+      <div className="Staff justify-content-center">
         <div className="card">
           <img className="card-img-top" src={employee.image} alt="a staff"/>
           <div className="card-body">

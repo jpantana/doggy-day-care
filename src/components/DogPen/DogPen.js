@@ -1,19 +1,25 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-import dogShape from '../../helpers/propz/dogShape';
+import dogsData from '../../helpers/data/dogsData';
 
 import Dog from '../Dog/Dog';
 
 import './DogPen.scss';
 
 class DogPen extends React.Component {
-  static propTypes = {
-    dogs: PropTypes.arrayOf(dogShape.dogShape),
+  state = {
+    dogs: [],
   }
+
+  componentDidMount() {
+    dogsData.getDogs()
+      .then(dogs => this.setState({ dogs }))
+      .catch(err => console.error('no dogs for you', err));
+  }
+
   render() {
-    const { dogs } = this.props;
-    const makeDogs = dogs.map(dog => (
+    // const { dogs } = this.props;
+    const makeDogs = this.state.dogs.map(dog => (
       <Dog key={ dog.id } dog={ dog } /> // for each dog return a Dog component that returns a dog component with a prop of the dog
     ));
     return (
