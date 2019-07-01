@@ -8,16 +8,19 @@ import DogPen from '../DogPen/DogPen';
 import StaffRoom from '../StaffRoom/StaffRoom';
 import WalkSchedule from '../Walks/Walks';
 
-
 import './Home.scss';
 
 class Home extends React.Component {
-  toggle = this.toggle.bind(this); // ask Zoe why i need this??
+  toggleStaff = this.toggleStaff.bind(this); // ask Zoe why i need this??
+  toggleDogs = this.toggleDogs.bind(this); // ask Zoe why i need this??
+  // handleChange = this.handleChange.bind(this);
   state = {
     dogs: [],
     staff: [],
     employee: '',
-    dropdownOpen: false,
+    dogDropdownOpen: false,
+    staffDropdownOpen: false,
+    value: '',
   }
 
   componentDidMount() {
@@ -29,29 +32,54 @@ class Home extends React.Component {
       .catch(err => console.error('no employees for you', err));
   }
 
-  toggle() {
+  toggleStaff(e) {
+    e.preventDefault();
     this.setState(prevState => ({
-      dropdownOpen: !prevState.dropdownOpen
+      staffDropdownOpen: !prevState.staffDropdownOpen
     }));
   }
-  
-  handleEmployeeChange(e) {
-    this.setState({value: e.target.value})
+  toggleDogs(e) {
+    e.preventDefault();
+    this.setState(prevState => ({
+      dogDropdownOpen: !prevState.dogDropdownOpen
+    }));
   }
+
+  handleStaffChange = (e) => {
+    e.preventDefault();
+    const theseEmployees = this.state.staff;
+    const theEmployee = theseEmployees.filter(employee => employee.id === e.target.value ? employee : '');
+    // const newWalk = {
+    //   dogName: '',
+    //   employeeName: theEmployee[0].name,
+    //   employeeId: theEmployee[0].id,
+    //   dogId: '',
+    //   date: '',
+    // }
+    return theEmployee[0];
+  };
+
+  handleDogChange = (e) => {
+    e.preventDefault();
+    const theseDogs = this.state.dogs;
+    const theDog = theseDogs.filter(dog => dog.id === e.target.value ? dog : '');
+    return theDog[0];
+  };
+
 
   render() {
     const { dogs } = this.state;
     const { staff } = this.state;
 
-    const myStaffSelectionNames = staff.map(employee => <DropdownItem className="dropdown-item" key={employee.id} value={employee.name}>{employee.name}</DropdownItem>);
-    const myDogSelectionNames = dogs.map(dog => <DropdownItem className="dropdown-item" key={dog.id}>{dog.name}</DropdownItem>);
-
+    const myStaffSelectionNames = staff.map(employee => <DropdownItem key={employee.id} onClick={this.handleStaffChange} value={employee.id}>{employee.name}</DropdownItem>);
+    const myDogSelectionNames = dogs.map(dog => <DropdownItem key={dog.id} onClick={this.handleDogChange} value={dog.id}>{dog.name}</DropdownItem>);
+    // try making a function that populates an input with employee and dog
     return (
     <div>
-      <Form>
+      <Form className="Form">
         <FormGroup>
           <Label for="exampleEmail">Staff</Label>
-          <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+          <Dropdown isOpen={this.state.staffDropdownOpen} onClick={this.toggleStaff}>
             <DropdownToggle caret>
               Staff
             </DropdownToggle>
@@ -61,8 +89,8 @@ class Home extends React.Component {
           </Dropdown>
         </FormGroup>
         <FormGroup>
-          <Label for="exampleEmail">Dogs</Label>
-          <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+          <Label for="exampleEmail">{ this.handleDogChange() }</Label>
+          <Dropdown isOpen={this.state.dogDropdownOpen} onClick={this.toggleDogs}>
            <DropdownToggle caret>
               Dog Names
             </DropdownToggle>
@@ -71,7 +99,7 @@ class Home extends React.Component {
               </DropdownMenu>
           </Dropdown>  
         </FormGroup>     
-        <Button>Submit</Button>
+        <Button className="formSubmitBtn">Submit</Button>
       </Form>
       <div className="Home">
         <div className="row justify-content-center">
