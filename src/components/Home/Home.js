@@ -19,10 +19,10 @@ class Home extends React.Component {
     dogs: [],
     staff: [],
     walks: [],
-    employee: '',
+    // employee: '',
     dogDropdownOpen: false,
     staffDropdownOpen: false,
-    value: '',
+    // value: '',
   }
 
   componentDidMount() {
@@ -45,7 +45,7 @@ class Home extends React.Component {
     walksData.deleteWalk(walkId)
       .then(() => this.getWalks())
       .catch(err => console.error('nothing was deleted', err));
-  };
+  }; // ask Zoe why it won't re render when you delete the last walk (and expect 0)
 
   toggleStaff(e) {
     e.preventDefault();
