@@ -5,6 +5,8 @@ const baseUrl = firebaseConfig.firebaseKeys.databaseURL;
 
 const newWalks = () => axios.post(`${baseUrl}/walks.json`);
 
+const deleteWalk = walkId => axios.delete(`${baseUrl}/walks/${walkId}.json`);
+
 const getWalks = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/walks.json`)
     .then((res) => {
@@ -17,4 +19,4 @@ const getWalks = () => new Promise((resolve, reject) => {
     }).catch(err => reject(err));
 });
 
-export default { getWalks, newWalks };
+export default { getWalks, newWalks, deleteWalk };
