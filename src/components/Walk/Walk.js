@@ -12,7 +12,7 @@ class Staff extends React.Component {
   render() {
     const { walk } = this.props;
     return (
-      <div className="Staff justify-content-center">
+      <div className="Walk justify-content-center">
         <div className="card">
           <div className="card-body">
             <h5 className="card-title">{walk.dogId}</h5>
