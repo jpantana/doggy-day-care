@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import walkShape from '../../helpers/propz/walkShape';
 
@@ -24,7 +25,7 @@ class Walk extends React.Component {
         <div className="card">
           <div className="card-body">
             <h5 className="card-title">{walk.dogName}</h5>
-            <h5 className="card-title">{walk.date}</h5>
+            <h5 className="card-title">{moment(walk.date).format('MMMM Do, h:mm a')}</h5>
             <p className="card-text">{walk.employeeName}</p>
             <button className="btn btn-danger" onClick={this.deleteWalkEvent}>X</button>
           </div>
