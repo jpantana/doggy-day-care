@@ -18,11 +18,21 @@ class Walk extends React.Component {
     deleteWalk(walk.id);
   };
 
+  editEvent = (e) => {
+    e.preventDefault();
+    const { walk, toggle } = this.props;
+    toggle(walk);
+    // toggle.setState(prevState => ({
+    //   modal: !prevState.modal
+    // }));
+  };
   render() {
     const { walk } = this.props;
+    const { i } = this.props;
     return (
       <div className="Walk justify-content-center">
         <div className="card">
+          <button id={"editBtn" + i } className="btn btn-danger m-auto w-25 br-5 content-danger rounded" onClick={this.editEvent}>edit</button>
           <div className="card-body">
             <h5 className="card-title">{walk.dogName}</h5>
             <h5 className="card-title">{moment(walk.date).format('MMMM Do, h:mm a')}</h5>

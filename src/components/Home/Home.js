@@ -2,7 +2,7 @@ import React from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter ,Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { UncontrolledDropdown, Button, Modal, ModalHeader, ModalBody, ModalFooter, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 import dogsData from '../../helpers/data/dogsData';
 import employeesData from '../../helpers/data/employeesData';
@@ -54,7 +54,16 @@ class Home extends React.Component {
       .catch(err => console.error('nothing was deleted', err));
   }; // ask Zoe why it won't re render when you delete the last walk (and expect 0)
 
-  toggle() {
+  toggle(walk) {
+    if (walk.id !== undefined) {
+      this.setState({
+        value1: walk.employeeName,
+        value2: walk.dogName,
+        employeeId: walk.employeeId,
+        dogId: walk.dogId,
+        date: walk.date,
+      });
+    }
     this.setState(prevState => ({
       modal: !prevState.modal
     }));
@@ -84,7 +93,6 @@ class Home extends React.Component {
 
   whichDog = (e) => {
     e.preventDefault();
-    console.error(e.target);
     this.setState({
       value2: e.target.name,
       dogId: e.target.value
@@ -95,7 +103,6 @@ class Home extends React.Component {
     const newWalk = { dogName: this.state.value2, employeeName: this.state.value1, employeeId: this.state.employeeId, dogId: this.state.dogId };
     newWalk.date = document.getElementById('walkDateTime').value;
     newWalk.uid = firebase.auth().currentUser.uid;
-    console.error('new walk', newWalk);
     walksData.postWalk(newWalk)
       .then(() => {
         this.setState({ value1: 'Employee', value2: 'Dog', employeeId: '', dogId: '', modal: false });
@@ -104,8 +111,21 @@ class Home extends React.Component {
       .catch(err => console.error('no new order posted', err));
   };
 
+  // updateExisting = (orderName) => {
+  //   const updateOrder = { ...this.state.orderEditing };
+  //   const orderId = updateOrder.id;
+  //   updateOrder.fishes = this.state.fishOrder;
+  //   updateOrder.name = orderName;
+  //   delete updateOrder.id;
+  //   ordersData.putOrder(orderId, updateOrder)
+  //     .then(() => {
+  //       this.setState({ fishorder: {}, orderEditing: {} });
+  //       this.getOrders();
+  //     })
+  //     .catch(err => console.error('edit not resaved', err));
+  // };
+
   saveNewWalk = (walk) => {
-    console.error('something', walk);
     // if (Object.keys(this.state.orderEditing).length > 0) {
     //   this.updateExisting(walk);
     // } else {
@@ -113,16 +133,13 @@ class Home extends React.Component {
     // }
   };
 
-
-
-
   render() {
     const { dogs } = this.state;
     const { staff } = this.state;
     const { walks } = this.state;
 
-    const myStaffSelectionNames = staff.map(employee => <DropdownItem key={employee.id} onClick={this.handleStaffChange} name={employee.name} value={employee.id} onClick={this.whichStaffer}>{employee.name}</DropdownItem>);
-    const myDogSelectionNames = dogs.map(dog => <DropdownItem key={dog.id} onClick={this.handleDogChange} value={dog.id} name={dog.name} onClick={this.whichDog}>{dog.name}</DropdownItem>);
+    const myStaffSelectionNames = staff.map(employee => <DropdownItem key={employee.id} value={employee.id} name={employee.name} onClick={this.whichStaffer}>{employee.name}</DropdownItem>);
+    const myDogSelectionNames = dogs.map(dog => <DropdownItem key={dog.id} name={dog.name} value={dog.id} onClick={this.whichDog}>{dog.name}</DropdownItem>);
     // try making a function that populates an input with employee and dog
     return (
     <div>
@@ -132,24 +149,24 @@ class Home extends React.Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Schedule a walk...</ModalHeader>
           <ModalBody>
-            <div class="form-group row">
-              <label for="example-datetime-local-input" class="col-2 col-form-label">Date and time</label>
-              <div class="col-10">
-                <input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="walkDateTime" />
+            <div className="form-group row">
+              <label htmlFor="example-datetime-local-input" className="col-2 col-form-label">Date and time</label>
+              <div className="col-10">
+                <input className="form-control" type="datetime-local" defaultValue="2019-07-19T10:00:00" id="walkDateTime" />
               </div>
             </div>
-              <Dropdown isOpen={this.state.staffDropdownOpen} onClick={this.toggle2}>
+              <UncontrolledDropdown isOpen={this.state.staffDropdownOpen} onClick={this.toggle2}>
                 <DropdownToggle caret>{this.state.value1}</DropdownToggle>
                   <DropdownMenu>
                     { myStaffSelectionNames }
                   </DropdownMenu>
-              </Dropdown>
-                <Dropdown isOpen={this.state.dogDropdownOpen} onClick={this.toggle3}>
+              </UncontrolledDropdown>
+                <UncontrolledDropdown isOpen={this.state.dogDropdownOpen} onClick={this.toggle3}>
                 <DropdownToggle caret>{this.state.value2}</DropdownToggle>
                     <DropdownMenu>
                       { myDogSelectionNames }
                     </DropdownMenu>
-              </Dropdown>
+              </UncontrolledDropdown>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.saveNewWalk}>Schedule</Button>{' '}
@@ -163,7 +180,7 @@ class Home extends React.Component {
       <div className="Home">
         <div className="row justify-content-center">
           <div className="col-4"><DogPen dogs={ dogs }/></div>
-          <div className="col-4"><WalkSchedule walks={ walks } deleteWalk={ this.deleteWalk }/></div>
+          <div className="col-4"><WalkSchedule walks={ walks } deleteWalk={ this.deleteWalk } toggle={this.toggle}/></div>
           <div className="col-4"><StaffRoom staff={ staff }/></div>
         </div>
       </div>
