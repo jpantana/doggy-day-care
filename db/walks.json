@@ -4,20 +4,23 @@
     "dogName": "Bruce Wayne",
     "dogId": "dog2",
     "employeeId": "employee4",
-    "date": "10/25/2019"
+    "date": "2019-07-01T10:45:00",
+    "uid": "1A2dkh"
   },
   "walk2": {
     "employeeName": "Randy Parliament",
     "dogName": "Dolly Parton",
     "dogId": "dog4",
     "employeeId": "employee1",
-    "date": "10/26/2019"
+    "date": "2019-07-01T10:45:00",
+    "uid": "1A2dkh"
   },
   "walk3": {
     "employeeName": "Helga Schnitzel",
     "dogName": "Hagrid",    
     "dogId": "dog1",
     "employeeId": "employee3",
-    "date": "10/27/2019"
+    "date": "2019-07-01T10:45:00",
+    "uid": "1A2dkh"
   }
 }
