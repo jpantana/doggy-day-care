@@ -22,9 +22,6 @@ class Walk extends React.Component {
     e.preventDefault();
     const { walk, toggle } = this.props;
     toggle(walk);
-    // toggle.setState(prevState => ({
-    //   modal: !prevState.modal
-    // }));
   };
   render() {
     const { walk } = this.props;
