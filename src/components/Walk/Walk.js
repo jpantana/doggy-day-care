@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-// import walksData from '../../helpers/data/walksData';
 import walkShape from '../../helpers/propz/walkShape';
 
 import './Walk.scss';
@@ -17,7 +16,6 @@ class Walk extends React.Component {
     const { walk, deleteWalk } = this.props;
     e.preventDefault();
     deleteWalk(walk.id);
-    console.error(deleteWalk);
   };
 
   editEvent = (e) => {

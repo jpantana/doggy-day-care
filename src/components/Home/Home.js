@@ -46,18 +46,16 @@ class Home extends React.Component {
   getWalks = () => {
     walksData.getWalks()
     .then(walks => this.setState({ walks }))
-    .catch(err => {
-      console.error('no walks for you', err);
-      // walks => this.setState({ walks }); // not sure whats happening here
-    });
+    .catch(err => console.error('no walks for you', err));
   };
 
   deleteWalk = (walkId) => {
     walksData.deleteWalk(walkId)
       .then(() => this.getWalks())
       .catch(err => console.error('nothing was deleted', err));
-  }; // ask Zoe why it won't re render when you delete the last walk (and expect 0)
-
+      this.setState({walks: []});
+  };
+  
   toggle(walk) {
     if (walk.id !== undefined) {
       this.setState({
@@ -137,7 +135,6 @@ class Home extends React.Component {
 
     const myStaffSelectionNames = staff.map(employee => <DropdownItem key={employee.id} value={employee.id} name={employee.name} onClick={this.whichStaffer}>{employee.name}</DropdownItem>);
     const myDogSelectionNames = dogs.map(dog => <DropdownItem key={dog.id} name={dog.name} value={dog.id} onClick={this.whichDog}>{dog.name}</DropdownItem>);
-    // try making a function that populates an input with employee and dog
     return (
     <div>
       <div>
@@ -171,9 +168,6 @@ class Home extends React.Component {
           </ModalFooter>
         </Modal>
       </div>
-
-   
-
       <div className="Home">
         <div className="row justify-content-center">
           <div className="col-4"><DogPen dogs={ dogs }/></div>
