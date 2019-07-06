@@ -10,6 +10,7 @@ class Walk extends React.Component {
   static propTypes = {
     walk: walkShape.walkShape,
     deleteWalk: PropTypes.func.isRequired,
+    toggle: PropTypes.func.isRequired,
   }
 
   deleteWalkEvent = (e) => {

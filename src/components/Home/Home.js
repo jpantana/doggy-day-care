@@ -1,8 +1,14 @@
 import React from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import PropTypes from 'prop-types';
 
 import { UncontrolledDropdown, Button, Modal, ModalHeader, ModalBody, ModalFooter, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+
+import dogShape from '../../helpers/propz/dogShape';
+import staffShape from '../../helpers/propz/staffShape';
+import walkShape from '../../helpers/propz/walkShape';
+
 
 import dogsData from '../../helpers/data/dogsData';
 import employeesData from '../../helpers/data/employeesData';
@@ -15,6 +21,11 @@ import WalkSchedule from '../Walks/Walks';
 import './Home.scss';
 
 class Home extends React.Component {
+  static propTypes = {
+    dogs: PropTypes.arrayOf(dogShape.dogShape),
+    walks: PropTypes.arrayOf(walkShape.walkShape),
+    staff: PropTypes.arrayOf(staffShape.staffShape)
+  }
   state = {
     dogs: [],
     staff: [],
@@ -138,7 +149,7 @@ class Home extends React.Component {
     return (
     <div>
       <div>
-        <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}Add New Walk</Button>
+        <Button color="success" className="addNewWalk" onClick={this.toggle}>{this.props.buttonLabel}Add New Walk</Button>
 
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Schedule a walk...</ModalHeader>
