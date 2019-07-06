@@ -26,6 +26,7 @@ class Home extends React.Component {
     value2: "Doggy",
     employeeId: '',
     dogId: '',
+    walkId: '',
   }
 
   toggle = this.toggle.bind(this);
@@ -45,7 +46,10 @@ class Home extends React.Component {
   getWalks = () => {
     walksData.getWalks()
     .then(walks => this.setState({ walks }))
-    .catch(err => console.error('no walks for you', err));
+    .catch(err => {
+      console.error('no walks for you', err);
+      // walks => this.setState({ walks }); // not sure whats happening here
+    });
   };
 
   deleteWalk = (walkId) => {
@@ -62,6 +66,7 @@ class Home extends React.Component {
         employeeId: walk.employeeId,
         dogId: walk.dogId,
         date: walk.date,
+        walkId: walk.id,
       });
     }
     this.setState(prevState => ({
@@ -99,38 +104,30 @@ class Home extends React.Component {
     });
   }; 
 
-  makeNew = (walk) => {
+  makeNewAndEditWalks = (walk) => {
     const newWalk = { dogName: this.state.value2, employeeName: this.state.value1, employeeId: this.state.employeeId, dogId: this.state.dogId };
     newWalk.date = document.getElementById('walkDateTime').value;
     newWalk.uid = firebase.auth().currentUser.uid;
-    walksData.postWalk(newWalk)
+    // walkId is setState so this condition tests if firebase has already created a walkId
+    // newWalk is the object that has been updated, so it passes now updated info to axios put func
+    if (this.state.walkId !== '') {
+      walksData.putWalk(this.state.walkId, newWalk)
+        .then(() => {
+          this.setState({ value1: 'Employee', value2: 'Dog', employeeId: '', dogId: '', modal: false, walkId: '', });
+          this.getWalks();
+          }).catch(err => console.error('no edit to walk', err));
+    } else {
+      walksData.postWalk(newWalk)
       .then(() => {
         this.setState({ value1: 'Employee', value2: 'Dog', employeeId: '', dogId: '', modal: false });
         this.getWalks();
       })
       .catch(err => console.error('no new order posted', err));
+    }
   };
 
-  // updateExisting = (orderName) => {
-  //   const updateOrder = { ...this.state.orderEditing };
-  //   const orderId = updateOrder.id;
-  //   updateOrder.fishes = this.state.fishOrder;
-  //   updateOrder.name = orderName;
-  //   delete updateOrder.id;
-  //   ordersData.putOrder(orderId, updateOrder)
-  //     .then(() => {
-  //       this.setState({ fishorder: {}, orderEditing: {} });
-  //       this.getOrders();
-  //     })
-  //     .catch(err => console.error('edit not resaved', err));
-  // };
-
   saveNewWalk = (walk) => {
-    // if (Object.keys(this.state.orderEditing).length > 0) {
-    //   this.updateExisting(walk);
-    // } else {
-      this.makeNew(walk);
-    // }
+    this.makeNewAndEditWalks(walk);
   };
 
   render() {
