@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 A website to that allows a user to add items they are hoarding. They can also edit, and delete said items.
 
 ## Screenshots
-![Image of the Doggy Day Care website.](https://raw.githubusercontent.com/jpantana/personal-bio-site/style2/imgs/hoarder.png "screenshot of Doggy Day Care site.")
+![Image of the Doggy Day Care website.](https://raw.githubusercontent.com/jpantana/doggy-day-care/master/screenshots/doggy.png "screenshot of Doggy Day Care site.")
 
 ## Installation Instructions
 * Clone down this repo
